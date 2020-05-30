@@ -1,4 +1,5 @@
 .idea/
+dart_mapper.iml
 
 # Files and directories created by pub
 .dart_tool/
