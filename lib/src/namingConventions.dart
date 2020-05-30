@@ -36,6 +36,7 @@ class NoChangeNamingConvention extends NamingConvention {
 abstract class SplitNamingConvention extends NamingConvention {
   const SplitNamingConvention();
 
+  // Courtesy to: https://stackoverflow.com/a/1098039/10902763
   static RegExp wordSplitter = RegExp('((?<=[a-z])[A-Z]|[A-Z](?=[a-z]))');
   static RegExp charSplitter = RegExp('[ _-]');
 
