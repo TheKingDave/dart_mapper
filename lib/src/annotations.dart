@@ -12,22 +12,22 @@ class Entity implements IWithGroup, MappingOption, UnmappingOption {
   @override
   final NamingConvention namingConvention;
   @override
-  final List<Type> allowedTypes;
+  final Set<Type> allowedTypes;
   @override
   final String group;
 
   const Entity(
       {this.ignoreUnknown,
       this.namingConvention,
-      this.group,
-      this.allowedTypes});
+      this.group = 'default',
+      this.allowedTypes = const {}});
 
   Entity copyWith(Entity other) {
     if (other == null) return this;
     return Entity(
       ignoreUnknown: other.ignoreUnknown ?? ignoreUnknown,
       namingConvention: other.namingConvention ?? namingConvention,
-      allowedTypes: [...other.allowedTypes, ...allowedTypes],
+      allowedTypes: allowedTypes.union(other.allowedTypes),
     );
   }
 }
@@ -43,7 +43,11 @@ class Property implements IWithGroup {
   final String group;
 
   const Property(
-      {this.name, this.exclude, this.converter, this.group, this.mapTo});
+      {this.name,
+      this.exclude,
+      this.converter,
+      this.group = 'default',
+      this.mapTo});
 
   Property copyWith(Property other) {
     if (other == null) return this;
