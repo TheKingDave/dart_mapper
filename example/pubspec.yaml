@@ -1,0 +1,12 @@
+name: dart_mapper_example
+description: Example for dart_mapper
+version: 0.0.1
+homepage: https://github.com/TheKingDave/dart_mapper/tree/master/example
+
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+
+dependencies:
+  dart_mapper:
+    path: ../
+  intl: ^0.16.1
