@@ -25,7 +25,7 @@ class MoneyConverter extends Converter {
 void main() {
   final mapper = Mapper();
 
-  final test = TestJson(
+  final test = TestClass(
       stringField: 'Testing',
       excludedField: 'should not be displayed',
       intField: 23,
@@ -49,7 +49,7 @@ void main() {
 }
 
 @Entity()
-class TestJson {
+class TestClass {
   @Property(name: 'someName')
   String stringField;
 
@@ -75,7 +75,7 @@ class TestJson {
         'intField: $intField, doubleField: $doubleField, apiField: $apiField}';
   }
 
-  TestJson(
+  TestClass(
       {this.stringField,
       this.excludedField,
       this.intField,

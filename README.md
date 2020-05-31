@@ -1,7 +1,4 @@
-A library for Dart developers.
-
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+A library to convert between maps and objects.
 
 ## Usage
 
@@ -11,12 +8,27 @@ A simple usage example:
 import 'package:dart_mapper/dart_mapper.dart';
 
 main() {
-  var awesome = new Awesome();
+  final mapper = Mapper();
+  print(mapper.toMap(TestClass("stringValue", 'otherValue')));
+}
+
+@Entity()
+class TestClass {
+  @Property()
+  String stringField;
+
+  @Property(name: 'otherName')
+  String namedField;
+  
+  TestClass(this.stringField, this.namedField);
 }
 ```
+
+Created from templates made available by Stagehand under a BSD-style
+[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
 
 ## Features and bugs
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: http://example.com/issues/replaceme
+[tracker]: https://github.com/TheKingDave/dart_mapper/issues
