@@ -25,6 +25,8 @@ class TestClass {
 }
 ```
 
+A more extensive example can be found in the [example](./example) folder.
+
 ## License
 
 The licence can be found [here](./LICENSE)
