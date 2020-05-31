@@ -1,4 +1,4 @@
-import 'package:dart_mapper/dart_mapper.dart';
+import 'namingConventions.dart';
 
 class MappingOption {
   final List<Type> allowedTypes;

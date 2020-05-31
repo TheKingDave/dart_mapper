@@ -23,12 +23,12 @@ class GeneralConverter extends Converter {
       : super(mappedTypes, unmappedTypes);
 
   @override
-  mapValue(input, config) {
+  dynamic mapValue(input, config) {
     return map(input, {...this.config, ...config});
   }
 
   @override
-  unmapValue(input, config) {
+  dynamic unmapValue(input, config) {
     return unmap(input, {...this.config, ...config});
   }
 }

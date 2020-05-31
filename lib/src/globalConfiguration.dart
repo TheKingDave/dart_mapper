@@ -1,5 +1,5 @@
-import 'package:dart_mapper/dart_mapper.dart';
-import 'package:dart_mapper/src/options.dart';
+import 'namingConventions.dart';
+import 'options.dart';
 
 /// Global configuration for the mapper
 class GlobalMapperConfiguration {
