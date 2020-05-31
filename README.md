@@ -10,6 +10,7 @@ import 'package:dart_mapper/dart_mapper.dart';
 main() {
   final mapper = Mapper();
   print(mapper.toMap(TestClass("stringValue", 'otherValue')));
+  // {stringField: stringValue, otherName: otherValue}
 }
 
 @Entity()
@@ -23,6 +24,10 @@ class TestClass {
   TestClass(this.stringField, this.namedField);
 }
 ```
+
+## License
+
+The licence can be found [here](./LICENSE)
 
 Created from templates made available by Stagehand under a BSD-style
 [license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
