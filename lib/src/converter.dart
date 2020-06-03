@@ -1,17 +1,19 @@
 abstract class Converter {
-  final List<Type> mappedTypes;
-  final List<Type> unmappedTypes;
-
-  const Converter({this.mappedTypes, this.unmappedTypes});
-
   dynamic mapValue(dynamic input, Map<String, dynamic> config);
 
   dynamic unmapValue(dynamic inout, Map<String, dynamic> config);
 }
 
-class NoConverter extends Converter {
+abstract class TypedConverter implements Converter {
+  final List<Type> mappedTypes;
+  final List<Type> unmappedTypes;
+
+  const TypedConverter({this.mappedTypes, this.unmappedTypes});
+}
+
+class NoConverter extends TypedConverter {
   const NoConverter();
-  
+
   @override
   dynamic mapValue(input, Map<String, dynamic> config) {
     return input;
@@ -21,10 +23,9 @@ class NoConverter extends Converter {
   dynamic unmapValue(input, Map<String, dynamic> config) {
     return input;
   }
-  
 }
 
-class GeneralConverter extends Converter {
+class GeneralConverter extends TypedConverter {
   final dynamic Function(dynamic, Map<String, dynamic>) map;
   final dynamic Function(dynamic, Map<String, dynamic>) unmap;
   final Map<String, dynamic> config;

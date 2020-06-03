@@ -8,9 +8,9 @@ import 'converter.dart';
 import 'tuple.dart';
 
 class Mapper {
-  static final typeConverters = <Tuple<Type, Type>, Converter>{};
+  static final typeConverters = <Tuple<Type, Type>, TypedConverter>{};
 
-  Converter getTypeConverter(Type t1, Type t2) {
+  TypedConverter getTypeConverter(Type t1, Type t2) {
     return typeConverters[Tuple(t1, t2)];
   }
 

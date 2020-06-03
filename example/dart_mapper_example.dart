@@ -5,11 +5,12 @@ import 'package:intl/intl.dart';
 
 import 'utils.dart';
 
+// Make money formatter from intl
 final moneyFormat = NumberFormat.currency(locale: 'de_AT', symbol: '€');
 
-class MoneyConverter extends Converter {
-  const MoneyConverter()
-      : super(mappedTypes: const [double], unmappedTypes: const [String]);
+// Define a converter for money fields
+class MoneyConverter implements Converter {
+  const MoneyConverter();
 
   @override
   dynamic mapValue(dynamic input, Map<String, dynamic> config) {
@@ -23,8 +24,10 @@ class MoneyConverter extends Converter {
 }
 
 void main() {
+  // Make Mapper instance
   final mapper = Mapper();
 
+  // Generate test instance of TestClass
   final test = TestClass(
       stringField: 'Testing',
       excludedField: 'should not be displayed',
@@ -32,6 +35,7 @@ void main() {
       doubleField: 22.238,
       apiField: 'only in api');
 
+  // Specify some Mapping Options
   final optionList = <SpecificMappingOption>[
     null,
     SpecificMappingOption(namingConvention: NamingConvention.snakeCase),
@@ -40,6 +44,7 @@ void main() {
     SpecificMappingOption(groups: ['api_x']),
   ];
 
+  // For every mapping option run toMap
   for (var options in optionList) {
     final map = mapper.toMap(test, options);
     print('${options?.groups}: ${mapToString(map)}');
@@ -69,16 +74,16 @@ class TestClass {
   @Property(group: 'api_x', name: 'apiXField')
   String apiField;
 
-  @override
-  String toString() {
-    return 'TestJson{stringField: $stringField, excludedField: $excludedField, '
-        'intField: $intField, doubleField: $doubleField, apiField: $apiField}';
-  }
-
   TestClass(
       {this.stringField,
       this.excludedField,
       this.intField,
       this.doubleField,
       this.apiField});
+
+  @override
+  String toString() {
+    return 'TestJson{stringField: $stringField, excludedField: $excludedField, '
+        'intField: $intField, doubleField: $doubleField, apiField: $apiField}';
+  }
 }
