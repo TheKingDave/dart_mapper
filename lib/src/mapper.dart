@@ -36,8 +36,16 @@ class Mapper {
           .toConvention(property.name ?? MirrorSystem.getName(k));
 
       // Get value and give it to the [Converter]
-      final value = property.converter
+      var value = property.converter
           .mapValue(reflect(object).getField(k).reflectee, {});
+      
+      if(!mappingOption.allowedTypes.contains(value.runtimeType)) {
+        if(Utils.isEntityObject(value)) {
+          value = toMap(value, mappingOption);
+        } else {
+          
+        }
+      }
 
       ret[name] = value;
     });

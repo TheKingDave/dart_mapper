@@ -7,6 +7,11 @@ import 'interfaces.dart';
 import 'options.dart';
 
 class Utils {
+  static bool isEntityObject(dynamic obj) {
+    final classMirror = reflectClass(obj.runtimeType);
+    return classMirror.metadata.map((e) => e.reflectee).whereType<Entity>().isNotEmpty;
+  }
+  
   static Map<String, T> getMetadataMap<T extends IWithGroup>(
       DeclarationMirror mirror) {
     return Map.fromIterable(
