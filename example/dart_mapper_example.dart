@@ -10,32 +10,30 @@ class ObjectIdConverter implements Converter<ObjectId> {
 
   @override
   ObjectId unmapValue(input, [config]) {
-    if(!(input is String)) throw ArgumentError('Input musst be string.');
+    if (!(input is String)) throw ArgumentError('Input musst be string.');
     return ObjectId(input);
   }
-  
 }
 
 void main() {
   // Make Mapper instance
   final mapper = Mapper();
   mapper.addTypedConverter<ObjectId>(ObjectIdConverter());
-  
+
   final id = ObjectId('507f1f77bcf86cd799439011');
-  
+
   final testAddress = Address(
     street: 'The Other Street',
     city: 'Porters Lake',
     country: 'Canada',
   );
-  
+
   final testPerson = Person(
-    id: id,
-    name: 'Julia',
-    lastName: 'Last',
-    address: testAddress,
-    password: 'someBigSecret'
-  );
+      id: id,
+      name: 'Julia',
+      lastName: 'Last',
+      address: testAddress,
+      password: 'someBigSecret');
 
   // Specify some Mapping Options
   final optionList = <SpecificMappingOption>[
@@ -52,8 +50,8 @@ void main() {
   for (var options in optionList) {
     final map = mapper.toMap(testPerson, options);
     print('${options?.groups}: ${mapToString(map)}');
-    // TODO: implement fromMap
-    //print(mapper.fromMap<TestJson>(map, list));
+    print(mapper.fromMap<Person>(map, options));
+    print('');
   }
 }
 
@@ -81,6 +79,11 @@ class Address {
   String country;
 
   Address({this.street, this.city, this.country});
+
+  @override
+  String toString() {
+    return 'Address{street: $street, city: $city, country: $country}';
+  }
 }
 
 @Entity()
@@ -103,4 +106,9 @@ class Person {
   final Address address;
 
   Person({this.id, this.name, this.lastName, this.password, this.address});
+
+  @override
+  String toString() {
+    return 'Person{id: $id, name: $name, lastName: $lastName, password: $password, address: $address}';
+  }
 }

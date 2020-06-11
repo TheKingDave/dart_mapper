@@ -8,7 +8,7 @@ import 'options.dart';
 
 class Utils {
   static bool isEntityObject(dynamic obj) {
-    final classMirror = reflectClass(obj.runtimeType);
+    final classMirror = reflectClass(obj is Type ? obj : obj.runtimeType);
     return classMirror.metadata.map((e) => e.reflectee).whereType<Entity>().isNotEmpty;
   }
   
@@ -37,7 +37,7 @@ class Utils {
   static Property getProperty(
       DeclarationMirror dm, SpecificMappingOption mappingOption) {
     final propertyMap = Utils.getMetadataMap<Property>(dm);
-
+    
     // If no [Property] annotation found, return null
     if (propertyMap.isEmpty) return null;
 
