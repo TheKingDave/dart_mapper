@@ -1,31 +1,25 @@
-import 'dart:convert';
-
 import 'package:dart_mapper/dart_mapper.dart';
-import 'package:intl/intl.dart';
 
 import 'utils.dart';
 
-// Make money formatter from intl
-final moneyFormat = NumberFormat.currency(locale: 'de_AT', symbol: '€');
-
-// Define a converter for money fields
-class MoneyConverter implements Converter {
-  const MoneyConverter();
-
+class ObjectIdConverter implements Converter<ObjectId> {
   @override
-  dynamic mapValue(dynamic input, Map<String, dynamic> config) {
-    return moneyFormat.format(input);
+  dynamic mapValue(ObjectId input, [config]) {
+    return input.id;
   }
 
   @override
-  dynamic unmapValue(dynamic input, Map<String, dynamic> config) {
-    return moneyFormat.parse(input);
+  ObjectId unmapValue(input, [config]) {
+    if(!(input is String)) throw ArgumentError('Input musst be string.');
+    return ObjectId(input);
   }
+  
 }
 
 void main() {
   // Make Mapper instance
   final mapper = Mapper();
+  mapper.addTypedConverter<ObjectId>(ObjectIdConverter());
   
   final id = ObjectId('507f1f77bcf86cd799439011');
   
@@ -68,6 +62,11 @@ class ObjectId {
   final String id;
 
   ObjectId(this.id);
+
+  @override
+  String toString() {
+    return 'ObjectId($id)';
+  }
 }
 
 @entity

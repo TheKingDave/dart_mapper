@@ -5,13 +5,15 @@ import 'options.dart';
 import 'utils.dart';
 
 import 'converter.dart';
-import 'tuple.dart';
 
 class Mapper {
-  static final typeConverters = <Tuple<Type, Type>, TypedConverter>{};
-
-  TypedConverter getTypeConverter(Type t1, Type t2) {
-    return typeConverters[Tuple(t1, t2)];
+  static final typeConverters = <Type, Converter>{};
+  
+  void addTypedConverter<T>(Converter<T> converter) {
+    if(typeConverters.containsKey(T)) {
+      throw ArgumentError('This typedConverter is already set: $T');
+    }
+    typeConverters[T] = converter;
   }
 
   Map<String, dynamic> toMap(dynamic object,
@@ -42,8 +44,8 @@ class Mapper {
       if(!mappingOption.allowedTypes.contains(value.runtimeType)) {
         if(Utils.isEntityObject(value)) {
           value = toMap(value, mappingOption);
-        } else {
-          
+        } else if(typeConverters.containsKey(value.runtimeType)){
+          value = typeConverters[value.runtimeType].mapValue(value);
         }
       }
 
